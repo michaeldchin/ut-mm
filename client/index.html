@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ut-mm</title>
+    <style>
+      :root { color-scheme: dark; }
+      html, body { margin: 0; height: 100%; background: #000; color: #eee; font-family: ui-monospace, Menlo, Consolas, monospace; overflow: hidden; }
+      #app { position: fixed; inset: 0; }
+      canvas { display: block; }
+      #hud {
+        position: fixed; top: 12px; left: 12px; padding: 8px 12px;
+        background: rgba(0,0,0,0.5); border: 1px solid #333; border-radius: 6px;
+        font-size: 12px; line-height: 1.4; pointer-events: none; user-select: none;
+      }
+      #crosshair {
+        position: fixed; left: 50%; top: 50%; width: 6px; height: 6px;
+        margin: -3px 0 0 -3px; background: #fff; border-radius: 50%; opacity: 0.8;
+        pointer-events: none;
+      }
+      #overlay {
+        position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+        background: rgba(0,0,0,0.6); cursor: pointer; user-select: none;
+      }
+      #overlay.hidden { display: none; }
+      #overlay .card {
+        background: #111; border: 1px solid #333; border-radius: 8px; padding: 24px 32px; text-align: center;
+      }
+      #overlay h1 { margin: 0 0 8px; font-size: 18px; }
+      #overlay p { margin: 0; font-size: 13px; color: #aaa; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="hud">
+      <div>ut-mm — iteration 0</div>
+      <div id="hud-status">connecting…</div>
+      <div>WASD to move · mouse to look · ESC to release</div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="overlay">
+      <div class="card">
+        <h1>Click to play</h1>
+        <p>Pointer lock will engage. Press <b>ESC</b> to release.</p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

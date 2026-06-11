@@ -1,0 +1,23 @@
+{
+  "name": "ut-mm",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Browser-based multiplayer PVE FPS",
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:server dev:client",
+    "dev:server": "npm --workspace server run dev",
+    "dev:client": "npm --workspace client run dev",
+    "build": "npm --workspace shared run build && npm --workspace server run build && npm --workspace client run build",
+    "start": "npm --workspace server run start",
+    "clean": "rm -rf shared/dist server/dist client/dist node_modules shared/node_modules server/node_modules client/node_modules"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.5.4"
+  }
+}
