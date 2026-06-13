@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Build & Deploy
+    name: Build and Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +26,26 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to VPS
+      - name: Prepare deploy bundle
+        run: |
+          mkdir -p deploy
+          cp package.json package-lock.json deploy/
+          mkdir -p deploy/server deploy/client deploy/shared
+          cp -r server/dist deploy/server/
+          cp -r client/dist deploy/client/
+          cp -r shared/dist deploy/shared/
+
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          source: "deploy/*"
+          target: "/opt/ut-mm"
+
+      - name: Restart app on VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -36,7 +55,6 @@ jobs:
           script: |
             set -e
             cd /opt/ut-mm
-            git pull origin master
             npm ci --omit=dev
-            npm run build
             sudo systemctl restart ut-mm
+            sudo systemctl is-active --quiet ut-mm
