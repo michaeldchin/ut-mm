@@ -1,6 +1,6 @@
 # server/AGENTS.md
 
-Authoritative game server. Node 20+, TypeScript, `ws` for WebSockets. Port `8080` by default.
+Authoritative game server. Node 20+, TypeScript, `ws` for WebSockets. Port `8082` by default.
 
 ## Rules
 

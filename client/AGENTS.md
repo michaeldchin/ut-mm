@@ -25,7 +25,7 @@ npm --workspace client run build   # tsc + vite build → dist/
 
 ## Networking
 
-Currently inline in `main.ts`. Reconnects on close with a 2s backoff. Reads `VITE_WS_URL` env if set, otherwise `ws://localhost:8080`.
+Currently inline in `main.ts`. Reconnects on close with a 2s backoff. Reads `VITE_WS_URL` env if set, otherwise `ws://localhost:8082`.
 
 When you add anything more than a trivial message handler, extract networking into `src/net.ts` (see AGENTS.md §11 Recipe C).
 

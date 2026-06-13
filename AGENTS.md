@@ -11,7 +11,7 @@ Guidance for AI coding agents (and humans) working in this repo. **Read this fir
 - **Stack:** TypeScript everywhere. npm workspaces. Vite + Three.js client, Node + `ws` server, pure-types `shared` package.
 - **Packages:** `shared/` (protocol types), `server/` (authoritative game server), `client/` (browser renderer).
 - **Build order:** `shared` → `server` → `client`. The root `npm run build` enforces this.
-- **Dev:** `npm run dev` (server on `:8080`, client on `:5173`).
+- **Dev:** `npm run dev` (server on `:8082`, client on `:5173`).
 - **Hard rules:** `shared` has zero runtime deps · all messages typed via `shared` · server is authoritative · TS `strict` stays on.
 - **Where to add things:** see §5. Common tasks have recipes in §11.
 - **If you hit something non-obvious:** add it to §9.
@@ -50,7 +50,7 @@ npm workspaces monorepo. Three packages, one job each:
 ```
 ut-mm/
 ├── shared/   # @ut-mm/shared — protocol types only, zero runtime deps
-├── server/   # @ut-mm/server — Node + ws WebSocket game server (port 8080)
+├── server/   # @ut-mm/server — Node + ws WebSocket game server (port 8082)
 └── client/   # @ut-mm/client — Vite + Three.js browser client (port 5173)
 ```
 
@@ -70,7 +70,7 @@ Always run from the repo root unless noted.
 
 ```bash
 npm install            # install all workspaces
-npm run dev            # server + client in parallel (ws://localhost:8080, http://localhost:5173)
+npm run dev            # server + client in parallel (ws://localhost:8082, http://localhost:5173)
 npm run build          # typecheck/build shared, then server, then client
 npm run start          # run the built server (after npm run build)
 ```

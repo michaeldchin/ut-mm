@@ -12,7 +12,7 @@ import {
   type PlayerSnapshot,
 } from "@ut-mm/shared";
 
-const PORT = Number(process.env.PORT ?? 8080);
+const PORT = Number(process.env.PORT ?? 8082);
 
 interface ConnectedPlayer {
   ws: WebSocket;

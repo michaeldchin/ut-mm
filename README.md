@@ -26,7 +26,7 @@ This shapes a lot of design choices: server-side enemy AI and spawning are first
 ```
 ut-mm/
 ├── client/   # browser game (Vite dev server, port 5173)
-├── server/   # WebSocket game server (port 8080)
+├── server/   # WebSocket game server (port 8082)
 └── shared/   # shared message types & protocol
 ```
 
