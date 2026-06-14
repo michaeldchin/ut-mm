@@ -1,40 +1,35 @@
 name: Deploy
-
 on:
   push:
     branches:
       - master
-
 jobs:
   deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
-
       - name: Install dependencies
         run: npm ci
-
       - name: Build
         run: npm run build
-
       - name: Prepare deploy bundle
         run: |
           mkdir -p deploy
           cp package.json package-lock.json deploy/
           mkdir -p deploy/server deploy/client deploy/shared
           cp -r server/dist deploy/server/
+          cp server/package.json deploy/server/
           cp -r client/dist deploy/client/
+          cp client/package.json deploy/client/
           cp -r shared/dist deploy/shared/
-
+          cp shared/package.json deploy/shared/
       - name: Copy files to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -44,7 +39,6 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           source: "deploy/*"
           target: "/opt/ut-mm"
-
       - name: Restart app on VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -54,7 +48,7 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           script: |
             set -e
-            cd /opt/ut-mm
+            cd /opt/ut-mm/deploy
             npm ci --omit=dev
             sudo systemctl restart ut-mm
             sudo systemctl is-active --quiet ut-mm
